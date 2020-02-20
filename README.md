@@ -1,11 +1,6 @@
 # NeoVIM Configuration
-
-My setup:
-
-* Linux
-* i3 Window Manager
-
-## Dependencies
+Based on krisleech neovim-config
+https://github.com/krisleech/neovim-config
 
 * [Install NeoVIM](https://github.com/neovim/neovim/wiki/Installing-Neovim)
 * [fzf](https://github.com/junegunn/fzf).
