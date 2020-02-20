@@ -66,6 +66,9 @@ Plug 'lucapette/vim-ruby-doc', { 'for': 'ruby' }
 Plug 'vim-ruby/vim-ruby', { 'for': ['ruby', 'eruby'] }
 " Plug 'Keithbsmiley/rspec.vim', { 'for': ['ruby'] }
 
+" Vala
+Plug 'arrufat/vala.vim'
+
 " Crystal
 Plug 'rhysd/vim-crystal', { 'for': 'crystal' }
 
@@ -93,6 +96,7 @@ set nowritebackup
 set noswapfile
 set autoread
 set undofile
+set nofoldenable
 
 "  ---------------------------------------------------------------------------
 "  UI
