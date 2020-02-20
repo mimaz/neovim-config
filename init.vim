@@ -146,9 +146,9 @@ set regexpengine=1 " use old, faster, regex engine
 "  Text Formatting
 "  ---------------------------------------------------------------------------
 
-set tabstop=2
-set shiftwidth=2
-set softtabstop=2
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
 set expandtab
 set shiftround
 

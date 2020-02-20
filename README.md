@@ -35,3 +35,4 @@ To update the plugins:
 ```
 :PlugUpdate
 ```
+git@github.com:krisleech/neovim-config.git
