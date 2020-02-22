@@ -28,7 +28,6 @@ Plug 'airblade/vim-rooter'
 Plug 'vim-scripts/YankRing.vim'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'godlygeek/tabular'
-" Plug 'zerowidth/vim-copy-as-rtf' "Mac only
 "
 if executable('ag')
   Plug 'epmatsw/ag.vim'
@@ -36,13 +35,6 @@ elseif executable('ack')
   Plug 'mileszs/ack.vim'
 endif
 
-" " Clojure
-" Plug 'neovim/node-host' | Plug 'snoe/nvim-parinfer.js'
-" Plug 'kovisoft/paredit', { 'for': ['clojure', 'clojurescript', 'scheme'] }
-" Plug 'cemerick/piggieback' | Plug 'tpope/vim-fireplace'
-" Plug 'tpope/vim-fireplace'
-Plug 'guns/vim-clojure-static'
-Plug 'guns/vim-clojure-highlight'
 " Plug 'kien/rainbow_parentheses.vim'
 " Plug 'guns/vim-sexp'
 Plug 'tpope/vim-repeat'
@@ -52,19 +44,6 @@ Plug 'vim-scripts/paredit.vim'
 
 " Evaluate Clojure buffers on load
 autocmd BufRead *.clj try | silent! Require | catch /^Fireplace/ | endtry
-
-" Rails
-" Plug 'tpope/vim-rails', { 'for': 'ruby' }
-Plug 'tpope/vim-haml', { 'for': 'haml' }
-Plug 'cakebaker/scss-syntax.vim', { 'for': 'scss' }
-
-" Ruby
-Plug 'gmarik/snipmate.vim', { 'for': ['ruby'] }
-Plug 'tpope/vim-endwise', { 'for': ['ruby', 'lua'] }
-Plug 'kana/vim-textobj-user' | Plug 'nelstrom/vim-textobj-rubyblock', { 'for': 'ruby' }
-Plug 'lucapette/vim-ruby-doc', { 'for': 'ruby' }
-Plug 'vim-ruby/vim-ruby', { 'for': ['ruby', 'eruby'] }
-" Plug 'Keithbsmiley/rspec.vim', { 'for': ['ruby'] }
 
 " Vala
 Plug 'arrufat/vala.vim'
@@ -88,7 +67,6 @@ syntax enable
 filetype plugin indent on
 let mapleader = ","
 let g:mapleader = ","
-imap jj <ESC>
 set modelines=0
 set history=1000
 set nobackup
@@ -122,6 +100,7 @@ set laststatus=2
 set number
 set relativenumber
 set previewheight=20
+set cinoptions=:0,l1,t0,g0,(0
 
 set t_Co=256
 set background=dark
@@ -223,26 +202,9 @@ hi Search ctermfg=NONE ctermbg=NONE cterm=underline
 " Toggle search highlighting
 noremap <F4> :set hlsearch! hlsearch?<CR>
 
-" search (forwards), drops a mark first
-nmap <space> /
-" search (backwards), drops a mark first
-map <c-space> ?
-
 " Center screen when scrolling search results
 nmap n nzz
 nmap N Nzz
-
-" Turn off arrow keys (this might not be a good idea for beginners, but it is
-" the best way to ween yourself of arrow keys on to hjkl)
-" http://yehudakatz.com/2010/07/29/everyone-who-tried-to-convince-me-to-use-vim-was-wrong/
-nnoremap <Left> :echoe "Use h"<CR>
-nnoremap <Right> :echoe "Use l"<CR>
-nnoremap <Up> :echoe "Use k"<CR>
-nnoremap <Down> :echoe "Use j"<CR>"
-inoremap <up> <nop>
-inoremap <down> <nop>
-inoremap <left> <nop>
-inoremap <right> <nop>
 
 nnoremap j gj
 nnoremap k gk
@@ -281,10 +243,6 @@ tnoremap <C-l> <C-\><C-n><C-w>l
 noremap <tab> :bn<CR>
 noremap <S-tab> :bp<CR>
 
-" autocomplete with tab
-inoremap <tab> <c-p>
-inoremap <s-tab> <c-n>
-
 " close buffer
 nmap <leader>d :bd<CR>
 
@@ -305,7 +263,7 @@ set wildignore+=*/.hg/*,*/.svn/*,*/.git/*
 set wildignore+=*/vendor/cache/*,*/public/system/*,*/tmp/*,*/log/*,*/solr/data/*,*/.DS_Store
 
 " Saving and exit
-nmap <leader>q :wqa!<CR>
+nmap <leader>q :wq!<CR>
 nmap <leader>w :w!<CR>
 nmap <leader><Esc> :q!<CR>
 
@@ -324,23 +282,6 @@ map <leader>rt :call VimuxRunCommand("clear;ctags --sort=yes --extra=+f --langua
 "  Plugins
 "  ---------------------------------------------------------------------------
 
-" neocomplcache
-
-" if !exists('g:neocomplcache_omni_patterns')
-"   let g:neocomplcache_omni_patterns = {}
-" endif
-" let g:neocomplcache_enable_at_startup = 1
-" let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
-
-" Ctrlp
-" map <leader>b :CtrlPBuffer<CR>
-" let g:ctrlp_map = ',f'
-" let g:ctrlp_cmd = 'CtrlP'
-" let g:ctrlp_match_window_reversed = 0
-" let g:ctrlp_use_caching = 1
-" let g:ctrlp_clear_cache_on_exit = 0
-" let g:ctrlp_cache_dir = '/tmp/ctrlp'
-
 " Tabular
 
 " align by comma
@@ -350,8 +291,6 @@ map <leader>tc :Tabularize /,\zs<CR>
 " https://github.com/junegunn/fzf.vim
 nmap <leader>f :GitFiles<CR>
 nmap <leader>b :Buffers<CR>
-
-imap <tab> <C-x><C-k>
 
 " Mapping selecting mappings
 nmap <leader><tab> <plug>(fzf-maps-n)
@@ -392,8 +331,8 @@ if filereadable(my_home . '.vim/bundle/vim-autocorrect/autocorrect.vim')
 endif
 
 " Easy commenting
-nnoremap // :TComment<CR>
-vnoremap // :TComment<CR>
+nnoremap <C-/> :TComment<CR>
+vnoremap <C-/> :TComment<CR>
 
 " Supertab
 let g:SuperTabContextDefaultCompletionType = "<c-x><c-o>"
@@ -422,13 +361,6 @@ nmap s( ysa))a
 
 " as above but insert at the end of the form
 nmap s) ysa))%i
-
-"  ---------------------------------------------------------------------------
-"  Ruby/Rails
-"  ---------------------------------------------------------------------------
-
-" Other files to consider Ruby
-au BufRead,BufNewFile Gemfile,Rakefile,Thorfile,config.ru,Vagrantfile,Guardfile,Capfile set ft=ruby
 
 "  ---------------------------------------------------------------------------
 "  GUI
