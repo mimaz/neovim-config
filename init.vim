@@ -114,7 +114,7 @@ autocmd BufLeave * :set norelativenumber
 autocmd BufEnter * :set relativenumber
 autocmd InsertEnter * :set norelativenumber
 autocmd InsertLeave * :set relativenumber
-autocmd BufNewFile,BufRead *.cl setf c
+autocmd BufNewFile,BufRead,BufEnter *.cl setf c
 
 set regexpengine=1 " use old, faster, regex engine
 
