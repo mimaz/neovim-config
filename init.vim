@@ -12,14 +12,13 @@ Plug 'rainux/vim-desert-warm-256'
 " Files
 Plug 'mileszs/ack.vim'
 Plug 'scrooloose/nerdtree', { 'on': ['NERDTree', 'NERDTreeToggle', 'NERDTreeMirror'] }
+Plug 'kien/ctrlp.vim'
 
-" Plug 'kien/ctrlp.vim'
-"
 " brew install fzf
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
-"
-" " Utility
+
+" Utility
 Plug 'tpope/vim-surround'
 Plug 'Townk/vim-autoclose'
 Plug 'tomtom/tcomment_vim'
@@ -30,9 +29,9 @@ Plug 'nathanaelkane/vim-indent-guides'
 Plug 'godlygeek/tabular'
 "
 if executable('ag')
-  Plug 'epmatsw/ag.vim'
+    Plug 'epmatsw/ag.vim'
 elseif executable('ack')
-  Plug 'mileszs/ack.vim'
+    Plug 'mileszs/ack.vim'
 endif
 
 " Plug 'kien/rainbow_parentheses.vim'
@@ -42,14 +41,8 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-sexp-mappings-for-regular-people'
 Plug 'vim-scripts/paredit.vim'
 
-" Evaluate Clojure buffers on load
-autocmd BufRead *.clj try | silent! Require | catch /^Fireplace/ | endtry
-
 " Vala
 Plug 'arrufat/vala.vim'
-
-" Crystal
-Plug 'rhysd/vim-crystal', { 'for': 'crystal' }
 
 " Git
 Plug 'tpope/vim-fugitive'
@@ -93,7 +86,6 @@ set wildmode=list:longest
 set visualbell
 set cursorline
 set ttyfast
-"set lazyredraw
 set ruler
 set backspace=indent,eol,start
 set laststatus=2
@@ -122,6 +114,7 @@ autocmd BufLeave * :set norelativenumber
 autocmd BufEnter * :set relativenumber
 autocmd InsertEnter * :set norelativenumber
 autocmd InsertLeave * :set relativenumber
+autocmd BufNewFile,BufRead *.cl setf c
 
 set regexpengine=1 " use old, faster, regex engine
 
@@ -140,8 +133,8 @@ set textwidth=79
 set formatoptions=n
 
 if exists("+colorcolumn")
-  set colorcolumn=80
-  highlight ColorColumn ctermbg=236
+    set colorcolumn=80
+    highlight ColorColumn ctermbg=236
 endif
 
 " display tabs and trailing spaces
@@ -167,7 +160,7 @@ set statusline+=\ %{fugitive#statusline()}
 set statusline+=\ [%{strlen(&fenc)?&fenc:&enc}]
 " rvm
 if exists("$rvm_path")
-  set statusline+=\ %{rvm#statusline()}
+    set statusline+=\ %{rvm#statusline()}
 end
 " line x of y
 set statusline+=\ [line\ %l\/%L]
@@ -176,26 +169,20 @@ set statusline+=\ [line\ %l\/%L]
 hi StatusLine ctermfg=Black ctermbg=White
 hi StatusLineNC ctermfg=Black ctermbg=Grey
 
-" Change colour of statusline in insert mode
-"au InsertEnter * hi StatusLine ctermbg=DarkBlue
-"au InsertLeave * hi StatusLine ctermfg=Black ctermbg=White
-
-
 "  ---------------------------------------------------------------------------
 "  Mappings
 "  ---------------------------------------------------------------------------
 
 " yank to system clipboard
-vnoremap yy :w !xclip -selection clipboard<CR><CR>
+vnoremap <leader>y :w !xclip -selection clipboard<CR><CR>
 
 " Searching / moving
-nnoremap / /\v
-vnoremap / /\v
+" nnoremap / /\v
+" vnoremap / /\v
 set ignorecase
 set smartcase
 set incsearch
 set showmatch
-" set nohlsearch
 
 hi Search ctermfg=NONE ctermbg=NONE cterm=underline
 
@@ -212,12 +199,12 @@ nnoremap k gk
 " To search in files (,a) we can use ack or ag
 
 if executable('ag')
-  nnoremap <leader>a :Ag! 
-  nnoremap <leader>aa :Ag! <cword><CR>
+    nnoremap <leader>a :Ag! 
+    nnoremap <leader>aa :Ag! <cword><CR>
 elseif executable('ack')
-  nnoremap <leader>a :Ack! 
-  nnoremap <leader>a :Ack! <cword><CR>
-  let g:ackprg="ack -H --nocolor --nogroup --column"
+    nnoremap <leader>a :Ack! 
+    nnoremap <leader>a :Ack! <cword><CR>
+    let g:ackprg="ack -H --nocolor --nogroup --column"
 endif
 
 " Ack settings: https://github.com/krisleech/vimfiles/wiki/Make-ack-ignore-files
@@ -327,7 +314,7 @@ let g:AutoCloseProtectedRegions = ["Character"]
 let my_home = expand("$HOME/")
 
 if filereadable(my_home . '.vim/bundle/vim-autocorrect/autocorrect.vim')
-  source ~/.vim/bundle/vim-autocorrect/autocorrect.vim
+    source ~/.vim/bundle/vim-autocorrect/autocorrect.vim
 endif
 
 " Easy commenting
@@ -367,21 +354,21 @@ nmap s) ysa))%i
 "  ---------------------------------------------------------------------------
 
 if has("gui_running")
-  set guioptions-=T " no toolbar
-  set guioptions-=m " no menus
-  set guioptions-=r " no scrollbar on the right
-  set guioptions-=R " no scrollbar on the right
-  set guioptions-=l " no scrollbar on the left
-  set guioptions-=b " no scrollbar on the bottom
-  set guioptions=aiA
-  set mouse=a
-  set guifont=Monaco:h12
+    set guioptions-=T " no toolbar
+    set guioptions-=m " no menus
+    set guioptions-=r " no scrollbar on the right
+    set guioptions-=R " no scrollbar on the right
+    set guioptions-=l " no scrollbar on the left
+    set guioptions-=b " no scrollbar on the bottom
+    set guioptions=aiA
+    set mouse=a
+    set guifont=Monaco:h12
 endif
 
 " Mouse in terminal!!! (good for resizing splits)
 if has('mouse')
-  set mouse=a
-  "set ttymouse=xterm2
+    set mouse=a
+    "set ttymouse=xterm2
 endif
 
 "  ---------------------------------------------------------------------------
